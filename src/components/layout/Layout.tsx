@@ -28,14 +28,11 @@ export function Layout() {
         <div className="container mx-auto px-4 h-16 flex items-center justify-between relative">
           <div className="flex items-center gap-2">
             <Link to="/" className="flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
-              <div className="bg-[#1E3A8A] p-2 rounded-xl">
-                <BookOpen className="h-6 w-6 text-white" />
+              <div className="bg-[#1E3A8A] p-1.5 sm:p-2 rounded-xl shrink-0">
+                <BookOpen className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
               </div>
-              <span className="font-bold text-xl text-[#1E3A8A] hidden sm:inline-block">
-                Surxondaryo yuridik texnikumi
-              </span>
-              <span className="font-bold text-xl text-[#1E3A8A] sm:hidden">
-                Syt kutubxonasi
+              <span className="font-bold text-sm sm:text-xl text-[#1E3A8A] leading-tight">
+                Surxondaryo yuridik<br className="sm:hidden" /> texnikumi
               </span>
             </Link>
           </div>
