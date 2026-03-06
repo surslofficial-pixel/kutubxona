@@ -1,5 +1,5 @@
-import { useState } from "react"
-import { Link, Outlet, useLocation } from "react-router-dom"
+import { useState, FormEvent } from "react"
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom"
 import { BookOpen, Home, Search, Library, Sparkles, User, Menu, X, Bookmark } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "../ui/button"
@@ -7,7 +7,10 @@ import { motion, AnimatePresence } from "framer-motion"
 
 export function Layout() {
   const location = useLocation()
+  const navigate = useNavigate()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState("")
 
   const navItems = [
     { name: "Bosh sahifa", href: "/", icon: Home },
@@ -16,10 +19,20 @@ export function Layout() {
     { name: "AI & Huquq", href: "/ai-law", icon: Sparkles, premium: true },
   ]
 
-  // Close mobile menu when route changes
+  // Close mobile menu and search when route changes
   useState(() => {
     setIsMobileMenuOpen(false)
+    setIsMobileSearchOpen(false)
   }, [location.pathname])
+
+  const handleSearch = (e: FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/catalog?q=${encodeURIComponent(searchQuery.trim())}`);
+      setIsMobileSearchOpen(false);
+      setSearchQuery("");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] flex flex-col font-sans">
@@ -60,14 +73,16 @@ export function Layout() {
           </nav>
 
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            <div className="relative hidden lg:block">
+            <form onSubmit={handleSearch} className="relative hidden lg:block">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-slate-400" />
               <input
                 type="search"
                 placeholder="Kitob izlash..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 className="h-9 w-64 rounded-full border border-slate-200 bg-slate-50 pl-9 pr-4 text-sm outline-none focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6] transition-all"
               />
-            </div>
+            </form>
 
             <Link to="/admin" className="hidden sm:flex flex-shrink-0">
               <Button variant="default" className="rounded-full w-full">
@@ -75,20 +90,57 @@ export function Layout() {
               </Button>
             </Link>
 
-            <Button variant="outline" size="icon" className="rounded-full lg:hidden flex-shrink-0 h-9 w-9">
-              <Search className="h-4 w-4" />
+            <Button
+              variant={isMobileSearchOpen ? "secondary" : "outline"}
+              size="icon"
+              className="rounded-full lg:hidden flex-shrink-0 z-[60] h-9 w-9"
+              onClick={() => {
+                setIsMobileSearchOpen(!isMobileSearchOpen);
+                setIsMobileMenuOpen(false);
+              }}
+            >
+              {isMobileSearchOpen ? <X className="h-4 w-4" /> : <Search className="h-4 w-4" />}
             </Button>
 
             <Button
               variant="ghost"
               size="icon"
               className="lg:hidden flex-shrink-0 z-[60] h-9 w-9"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              onClick={() => {
+                setIsMobileMenuOpen(!isMobileMenuOpen);
+                setIsMobileSearchOpen(false);
+              }}
             >
               {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
           </div>
         </div>
+
+        {/* Mobile Search Overlay */}
+        <AnimatePresence>
+          {isMobileSearchOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="border-t border-slate-100 bg-white lg:hidden overflow-hidden"
+            >
+              <div className="p-4">
+                <form onSubmit={handleSearch} className="relative w-full">
+                  <Search className="absolute left-3 top-2.5 h-5 w-5 text-slate-400" />
+                  <input
+                    type="search"
+                    placeholder="Kitob izlash..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    autoFocus
+                    className="h-10 w-full rounded-2xl border border-slate-200 bg-slate-50 pl-10 pr-4 text-base outline-none focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6] transition-all"
+                  />
+                </form>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Mobile Menu Overlay */}
         <AnimatePresence>
