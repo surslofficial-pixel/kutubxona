@@ -20,25 +20,17 @@ export function Home() {
   // "Yangi qo'shilgan kitoblar" bo'limida 2026, 2025, 2024, 2023 yillari uchun anime kitoblarni ko'rgazmaga (topga) qo'yamiz
   const targetYears = [2026, 2025, 2024, 2023];
 
-  const recentBooks = targetYears.map((year) => {
+  const recentBooks = targetYears.flatMap((year) => {
     // Bazadan ushbu yilda nashr etilgan kitobni topamiz
     const yearBooks = books.filter(b => Number(b.year) === year || Number(b.published) === year);
     if (yearBooks.length > 0) {
-      return yearBooks.sort((a, b) => {
+      return [yearBooks.sort((a, b) => {
         const dateA = a.date ? new Date(a.date).getTime() : 0;
         const dateB = b.date ? new Date(b.date).getTime() : 0;
         return dateB - dateA;
-      })[0];
+      })[0]];
     }
-    // Agar hali bunday kitob qo'shilmagan bo'lsa, o'rniga vizual tarzda chiroyli turishi uchun "Showcase" (namunaviy kitob) qo'yamiz
-    return {
-      id: `showcase-${year}`,
-      title: "Yangi darslik ko'rgazmasi",
-      author: "Muallif qo'shilmagan",
-      category: "Maxsus fanlar",
-      cover: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=400&h=600",
-      year: year
-    };
+    return [];
   });
 
 
