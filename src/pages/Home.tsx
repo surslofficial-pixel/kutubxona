@@ -45,11 +45,11 @@ export function Home() {
   return (
     <div className="space-y-12">
       {/* Hero Section */}
-      <section className="relative overflow-hidden rounded-2xl sm:rounded-[32px] bg-[#fbf8ec] px-4 py-10 sm:px-12 sm:py-24 lg:px-16 lg:py-32 shadow-2xl">
-        <div className="absolute inset-0 bg-[url('/assets/hero-bg.jpg')] opacity-100 bg-cover bg-center" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#1E3A8A]/90 via-[#1E3A8A]/60 to-transparent" />
+      <section className="relative overflow-hidden rounded-2xl sm:rounded-[32px] bg-[#fdfaf6] px-4 py-10 sm:px-12 sm:py-24 lg:px-16 lg:py-32 shadow-2xl border border-slate-200">
+        <div className="absolute inset-0 bg-[url('/assets/hero-bg.jpg')] opacity-100 bg-cover sm:bg-contain bg-right-bottom sm:bg-center bg-no-repeat" />
+        <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/80 to-white/20 sm:bg-gradient-to-r sm:from-white/95 sm:via-white/70 sm:to-transparent" />
 
-        <div className="relative z-10 max-w-2xl space-y-6 text-white">
+        <div className="relative z-10 max-w-2xl space-y-6 text-slate-900">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -61,7 +61,7 @@ export function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-base text-blue-100 sm:text-lg lg:text-xl"
+            className="text-base text-slate-700 sm:text-lg lg:text-xl font-medium"
           >
             Surxondaryo yuridik texnikumi talabalari uchun maxsus ishlab
             chiqilgan zamonaviy, tezkor va aqlli kitoblar bazasi.
@@ -75,7 +75,7 @@ export function Home() {
             <a href="https://sursl.uz/" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
               <Button
                 size="lg"
-                className="w-full sm:w-auto bg-white text-[#1E3A8A] hover:bg-blue-50 rounded-full px-8 font-semibold shadow-lg"
+                className="w-full sm:w-auto bg-[#1E3A8A] text-white hover:bg-[#1E3A8A]/90 rounded-full px-8 font-semibold shadow-lg"
               >
                 Rasmiy veb-sayt
               </Button>
@@ -84,7 +84,7 @@ export function Home() {
               <Button
                 size="lg"
                 variant="outline"
-                className="w-full sm:w-auto border-white/30 bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm rounded-full px-8"
+                className="w-full sm:w-auto border-slate-300 bg-white/50 text-[#1E3A8A] hover:bg-white/80 backdrop-blur-sm rounded-full px-8 font-semibold shadow-sm"
               >
                 AI & Huquq bo'limi
               </Button>
