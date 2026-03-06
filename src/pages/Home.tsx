@@ -46,8 +46,7 @@ export function Home() {
     <div className="space-y-12">
       {/* Hero Section */}
       <section className="relative overflow-hidden rounded-2xl sm:rounded-[32px] bg-[#1E3A8A] px-4 py-10 sm:px-12 sm:py-24 lg:px-16 lg:py-32 text-white shadow-2xl">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=1920&h=1080')] opacity-15 bg-cover bg-center" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#1E3A8A]/90 to-[#1E3A8A]/50" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#1E3A8A] to-[#1E3A8A]/50" />
 
         <div className="relative z-10 max-w-2xl space-y-6">
           <motion.h1
