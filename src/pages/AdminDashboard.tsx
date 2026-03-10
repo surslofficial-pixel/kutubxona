@@ -1832,10 +1832,9 @@ export function AdminDashboard() {
                 <AlertCircle className="w-5 h-5 sm:w-6 sm:h-6 text-amber-600" />
               </div>
               <div className="relative z-10">
-                <h3 className="text-amber-800 font-bold text-sm sm:text-base">Muhim eslatma!</h3>
+                <h3 className="text-amber-800 font-bold text-sm sm:text-base">Eslatma!</h3>
                 <p className="text-amber-700/90 text-sm mt-1 sm:mt-1.5 leading-relaxed">
-                  Eski ma'lumotlardagi <code className="font-bold bg-amber-100/80 px-1.5 py-0.5 rounded text-amber-900">4-25-guruh</code> kabi tire bilan yozilgan guruh nomlarini o'zgartirish uchun,
-                  quyidagi ro'yxatdan talabani topib tahrirlash (✏️) tugmasini bosing va guruhni <code className="font-bold bg-amber-100/80 px-1.5 py-0.5 rounded text-amber-900">425</code> ko'rinishida saqlang.
+                  Iltimos, har <span className="font-bold">30 kunda</span> joriy bazani (o'qish statistikasini) tepada o'ng tomonda joylashgan <code className="font-bold bg-amber-100/80 px-1.5 py-0.5 rounded text-amber-900">Word hisobot</code> tugmasi orqali yuklab saqlab qo'ying va eski ma'lumotlarni tizimdan o'chirib tashlang!
                 </p>
               </div>
             </motion.div>
