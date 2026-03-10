@@ -21,7 +21,14 @@ export function ReaderModal({ bookId, onClose }: ReaderModalProps) {
     const confirmRead = () => {
         if (!firstName || !lastName || !selectedBosqich || !selectedGuruh) return;
 
-        const groupName = `${selectedBosqich}-bosqich, ${selectedGuruh}-guruh`;
+        let finalGuruh = selectedGuruh.replace(/\D/g, '');
+        if (finalGuruh.length > 1) {
+            finalGuruh = finalGuruh.slice(0, 1) + '-' + finalGuruh.slice(1, 4);
+        } else {
+            finalGuruh = selectedGuruh;
+        }
+
+        const groupName = `${selectedBosqich}-bosqich, ${finalGuruh}-guruh`;
 
         addReadingSession({
             firstName,
@@ -104,18 +111,15 @@ export function ReaderModal({ bookId, onClose }: ReaderModalProps) {
                                 <div className="relative">
                                     <BookOpen className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
                                     <input
-                                        type="text"
-                                        inputMode="numeric"
-                                        pattern="[0-9\-]*"
+                                        type="tel"
                                         maxLength={5}
                                         value={selectedGuruh}
-                                        onChange={(e) => {
-                                            let val = e.target.value.replace(/\D/g, '');
-                                            if (val.length > 4) val = val.slice(0, 4);
+                                        onChange={(e) => setSelectedGuruh(e.target.value.replace(/[^\d-]/g, ''))}
+                                        onBlur={() => {
+                                            let val = selectedGuruh.replace(/\D/g, '');
                                             if (val.length > 1) {
-                                                val = val.slice(0, 1) + '-' + val.slice(1);
+                                                setSelectedGuruh(val.slice(0, 1) + '-' + val.slice(1, 4));
                                             }
-                                            setSelectedGuruh(val);
                                         }}
                                         className="w-full pl-10 pr-4 py-2.5 sm:py-2 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all text-base sm:text-sm"
                                         placeholder="0-25"

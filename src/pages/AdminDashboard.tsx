@@ -387,7 +387,15 @@ export function AdminDashboard() {
 
   const handleUpdateUser = () => {
     if (!newFirstName || !newLastName || !selectedAdminBosqich || !selectedAdminGuruh || !editingUserIdentity) return;
-    const newGroupName = `${selectedAdminBosqich}-bosqich, ${selectedAdminGuruh}-guruh`;
+
+    let finalGuruh = selectedAdminGuruh.replace(/\D/g, '');
+    if (finalGuruh.length > 1) {
+      finalGuruh = finalGuruh.slice(0, 1) + '-' + finalGuruh.slice(1, 4);
+    } else {
+      finalGuruh = selectedAdminGuruh;
+    }
+
+    const newGroupName = `${selectedAdminBosqich}-bosqich, ${finalGuruh}-guruh`;
     updateUserSessions(editingUserIdentity, {
       firstName: newFirstName,
       lastName: newLastName,
@@ -1271,18 +1279,15 @@ export function AdminDashboard() {
                     <div className="relative">
                       <BookOpen className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
                       <input
-                        type="text"
-                        inputMode="numeric"
-                        pattern="[0-9\-]*"
+                        type="tel"
                         maxLength={5}
                         value={selectedAdminGuruh}
-                        onChange={(e) => {
-                          let val = e.target.value.replace(/\D/g, '');
-                          if (val.length > 4) val = val.slice(0, 4);
+                        onChange={(e) => setSelectedAdminGuruh(e.target.value.replace(/[^\d-]/g, ''))}
+                        onBlur={() => {
+                          let val = selectedAdminGuruh.replace(/\D/g, '');
                           if (val.length > 1) {
-                            val = val.slice(0, 1) + '-' + val.slice(1);
+                            setSelectedAdminGuruh(val.slice(0, 1) + '-' + val.slice(1, 4));
                           }
-                          setSelectedAdminGuruh(val);
                         }}
                         className="w-full pl-10 pr-4 py-2 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all"
                         placeholder="0-25"
