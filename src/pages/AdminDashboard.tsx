@@ -1273,7 +1273,13 @@ export function AdminDashboard() {
                       <input
                         type="text"
                         value={selectedAdminGuruh}
-                        onChange={(e) => setSelectedAdminGuruh(e.target.value)}
+                        onChange={(e) => {
+                          let val = e.target.value.replace(/\D/g, '');
+                          if (val.length > 1) {
+                            val = val.slice(0, 1) + '-' + val.slice(1, 4);
+                          }
+                          setSelectedAdminGuruh(val);
+                        }}
                         className="w-full pl-10 pr-4 py-2 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all"
                         placeholder="0-25"
                       />
