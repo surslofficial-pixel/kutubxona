@@ -256,7 +256,16 @@ export function AdminDashboard() {
 
   // Authentication state
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    return sessionStorage.getItem('syt-admin-auth') === 'true';
+    // Obfuscated check: We look for a token that isn't just "true"
+    const token = sessionStorage.getItem('_sys_auth_tk');
+    if (!token) return false;
+    try {
+      // Very basic validation of the disguised token
+      const decoded = atob(token);
+      return decoded.startsWith('auth-valid-');
+    } catch {
+      return false;
+    }
   });
   const [loginUsername, setLoginUsername] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -267,8 +276,16 @@ export function AdminDashboard() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (loginUsername.trim().toLowerCase() === "yuridikkutubxona" && loginPassword.trim() === "Texnikumadmin") {
-      sessionStorage.setItem('syt-admin-auth', 'true');
+    // Obfuscated credential check using base64
+    // btoa("yuridikkutubxona") = "eXVyaWRpa2t1dHVieG9uYQ=="
+    // btoa("Texnikumadmin") = "VGV4bmlrdW1hZG1pbg=="
+    const enteredUserBase64 = btoa(loginUsername.trim().toLowerCase());
+    const enteredPassBase64 = btoa(loginPassword.trim());
+
+    if (enteredUserBase64 === "eXVyaWRpa2t1dHVieG9uYQ==" && enteredPassBase64 === "VGV4bmlrdW1hZG1pbg==") {
+      // Store a disguised token instead of 'true'
+      const disguisedToken = btoa(`auth-valid-${Date.now()}`);
+      sessionStorage.setItem('_sys_auth_tk', disguisedToken);
       setIsAuthenticated(true);
       setLoginError("");
     } else {
@@ -277,7 +294,7 @@ export function AdminDashboard() {
   };
 
   const handleLogout = () => {
-    sessionStorage.removeItem('syt-admin-auth');
+    sessionStorage.removeItem('_sys_auth_tk');
     setIsAuthenticated(false);
   };
 
