@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Document, Packer, Paragraph, Table, TableRow, TableCell, TextRun, WidthType, AlignmentType, BorderStyle, HeadingLevel } from "docx";
 import { saveAs } from "file-saver";
 import {
@@ -262,10 +262,11 @@ export function AdminDashboard() {
   const [loginError, setLoginError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+  const [showWarningModal, setShowWarningModal] = useState(true);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (loginUsername.trim() === "Yuridikkutubxona" && loginPassword.trim() === "Texnikumadmin") {
+    if (loginUsername.trim().toLowerCase() === "yuridikkutubxona" && loginPassword.trim() === "Texnikumadmin") {
       sessionStorage.setItem('syt-admin-auth', 'true');
       setIsAuthenticated(true);
       setLoginError("");
@@ -743,13 +744,20 @@ export function AdminDashboard() {
               <div className="relative">
                 <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
                 <input
-                  type="text"
+                  type={showLogin ? "text" : "password"}
                   value={loginUsername}
                   onChange={(e) => setLoginUsername(e.target.value)}
-                  className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all"
+                  className="w-full pl-11 pr-12 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all"
                   placeholder="Loginni kiriting"
                   required
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowLogin(!showLogin)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1"
+                >
+                  {showLogin ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                </button>
               </div>
             </div>
             <div className="space-y-2">
@@ -1827,16 +1835,15 @@ export function AdminDashboard() {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="bg-amber-50 border border-amber-200 rounded-2xl p-4 sm:p-5 flex items-start sm:items-center gap-4 shadow-sm relative overflow-hidden group"
+              className="bg-amber-50 border border-amber-200 rounded-2xl p-4 sm:p-5 flex items-start sm:items-center gap-4 shadow-sm relative overflow-hidden group mb-6"
             >
               <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full blur-3xl -mr-10 -mt-10 transition-transform group-hover:scale-150 duration-700"></div>
               <div className="bg-amber-100 p-2 sm:p-3 rounded-full shrink-0 relative z-10">
                 <AlertCircle className="w-5 h-5 sm:w-6 sm:h-6 text-amber-600" />
               </div>
-              <div className="relative z-10">
-                <h3 className="text-amber-800 font-bold text-sm sm:text-base">Eslatma!</h3>
-                <p className="text-amber-700/90 text-sm mt-1 sm:mt-1.5 leading-relaxed">
-                  Iltimos, har <span className="font-bold">30 kunda</span> joriy bazani (o'qish statistikasini) tepada o'ng tomonda joylashgan <code className="font-bold bg-amber-100/80 px-1.5 py-0.5 rounded text-amber-900">Word hisobot</code> tugmasi orqali yuklab saqlab qo'ying va eski ma'lumotlarni tizimdan o'chirib tashlang!
+              <div className="relative z-10 w-full text-center sm:text-left">
+                <p className="text-amber-800 text-sm sm:text-base font-medium leading-relaxed">
+                  Iltimos, har <span className="font-bold text-amber-900 bg-amber-200 px-1.5 py-0.5 rounded">30 kunda</span> joriy bazani (o'qish statistikasini) tepada o'ng tomonda joylashgan <code className="font-bold bg-white px-1.5 py-0.5 rounded text-amber-900 shadow-sm text-xs sm:text-sm">Word hisobot</code> tugmasi orqali yuklab saqlab qo'ying va eski ma'lumotlarni tizimdan <span className="font-bold text-red-600">o'chirib tashlang!</span>
                 </p>
               </div>
             </motion.div>
@@ -2234,6 +2241,44 @@ export function AdminDashboard() {
             </Card>
           </motion.div>
         )}
+
+        {/* Warning Modal */}
+        <AnimatePresence>
+          {activeTab === "users" && showWarningModal && (
+            <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: -20 }}
+                className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden flex flex-col"
+              >
+                <div className="bg-amber-500 p-6 flex flex-col items-center justify-center text-center relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-3xl -mr-10 -mt-10"></div>
+                  <div className="absolute bottom-0 left-0 w-24 h-24 bg-black/5 rounded-full blur-2xl -ml-8 -mb-8"></div>
+                  <div className="bg-white/20 p-4 rounded-full mb-4 shadow-inner relative z-10">
+                    <AlertCircle className="w-10 h-10 text-white" />
+                  </div>
+                  <h2 className="text-2xl font-bold text-white relative z-10 tracking-tight">Eslatma!</h2>
+                </div>
+
+                <div className="p-6 sm:p-8 space-y-6">
+                  <p className="text-slate-600 text-center leading-relaxed text-[15px]">
+                    Iltimos, har <span className="font-semibold text-amber-600 bg-amber-50 px-2 py-0.5 rounded">30 kunda</span> joriy bazani (o'qish statistikasini) tepada o'ng tomonda joylashgan <code className="font-bold bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded text-[13px]">Word hisobot</code> tugmasi orqali yuklab saqlab qo'ying va eski ma'lumotlarni tizimdan <span className="font-medium text-red-500">o'chirib tashlang!</span>
+                  </p>
+
+                  <div className="pt-2">
+                    <Button
+                      onClick={() => setShowWarningModal(false)}
+                      className="w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold py-6 rounded-xl text-base shadow-md shadow-amber-200 transition-all hover:-translate-y-0.5"
+                    >
+                      Tushunarli, rahmat!
+                    </Button>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
       </main>
 
 
