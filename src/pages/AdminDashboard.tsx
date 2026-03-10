@@ -265,7 +265,7 @@ export function AdminDashboard() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (loginUsername === "texnikum" && loginPassword === "admin66") {
+    if (loginUsername === "Yuridikkutubxona" && loginPassword === "Texnikumadmin") {
       sessionStorage.setItem('syt-admin-auth', 'true');
       setIsAuthenticated(true);
       setLoginError("");
