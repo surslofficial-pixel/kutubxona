@@ -289,8 +289,8 @@ export function Layout() {
                 <div className="mx-auto bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mb-4 backdrop-blur-md shadow-inner border border-white/20">
                   <AlertTriangle className="h-8 w-8 text-white drop-shadow-md" />
                 </div>
-                <h3 className="text-2xl font-bold mb-2 drop-shadow-sm">Eslatma!</h3>
-                <p className="text-red-50 text-base leading-relaxed drop-shadow-sm">
+                <h3 className="text-3xl sm:text-4xl font-extrabold mb-3 tracking-wide drop-shadow-md">Eslatma!</h3>
+                <p className="text-white text-lg sm:text-xl font-medium leading-relaxed drop-shadow-sm">
                   Sayt test rejimda ishlamoqda!
                 </p>
               </div>
@@ -299,7 +299,7 @@ export function Layout() {
                   className="w-full sm:w-[80%] h-12 rounded-xl bg-red-600 hover:bg-red-700 text-white text-base font-semibold shadow-lg shadow-red-600/20 transition-all hover:-translate-y-0.5"
                   onClick={closeTestAlert}
                 >
-                  Tushunarli
+                  Kirish
                 </Button>
               </div>
             </motion.div>
