@@ -1,6 +1,6 @@
-import { useState, FormEvent } from "react"
+import { useState, FormEvent, useEffect } from "react"
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom"
-import { BookOpen, Home, Search, Library, Sparkles, User, Menu, X, Bookmark } from "lucide-react"
+import { BookOpen, Home, Search, Library, Sparkles, User, Menu, X, Bookmark, AlertTriangle } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "../ui/button"
 import { motion, AnimatePresence } from "framer-motion"
@@ -11,6 +11,15 @@ export function Layout() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
+  const [showTestAlert, setShowTestAlert] = useState(() => {
+    return !sessionStorage.getItem("hasSeenTestAlert");
+  })
+
+  // Set session storage when closed
+  const closeTestAlert = () => {
+    sessionStorage.setItem("hasSeenTestAlert", "true");
+    setShowTestAlert(false);
+  }
 
   const navItems = [
     { name: "Bosh sahifa", href: "/", icon: Home },
@@ -250,6 +259,53 @@ export function Layout() {
           <div className="absolute bottom-[-100px] left-1/2 transform -translate-x-1/2 w-[80%] h-[150px] bg-blue-400/30 blur-[100px] rounded-full pointer-events-none"></div>
         </footer>
       )}
+
+      {/* Test Mode Modal */}
+      <AnimatePresence>
+        {showTestAlert && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[200]"
+              onClick={closeTestAlert}
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[201] w-[90%] max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden"
+            >
+              <div className="bg-gradient-to-br from-amber-400 to-orange-500 p-6 text-white text-center relative">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="absolute top-3 right-3 text-white/80 hover:text-white hover:bg-black/10 rounded-full h-8 w-8"
+                  onClick={closeTestAlert}
+                >
+                  <X className="h-5 w-5" />
+                </Button>
+                <div className="mx-auto bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mb-4 backdrop-blur-md shadow-inner border border-white/20">
+                  <AlertTriangle className="h-8 w-8 text-white drop-shadow-md" />
+                </div>
+                <h3 className="text-2xl font-bold mb-2 drop-shadow-sm">Eslatma!</h3>
+                <p className="text-orange-50 text-base leading-relaxed drop-shadow-sm">
+                  Sayt test rejimda ishlamoqda (dev)!
+                </p>
+              </div>
+              <div className="p-5 bg-slate-50 flex justify-center">
+                <Button
+                  className="w-full sm:w-[80%] h-12 rounded-xl bg-slate-900 hover:bg-slate-800 text-base font-semibold shadow-lg shadow-slate-900/20 transition-all hover:-translate-y-0.5"
+                  onClick={closeTestAlert}
+                >
+                  Tushunarli
+                </Button>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

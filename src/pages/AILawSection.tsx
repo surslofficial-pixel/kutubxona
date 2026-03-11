@@ -178,10 +178,6 @@ export function AILawSection() {
         <div className="absolute bottom-0 left-0 -ml-32 -mb-32 w-96 h-96 rounded-full bg-blue-600/20 blur-3xl animate-pulse delay-1000" />
 
         <div className="relative z-10 max-w-2xl space-y-6">
-          <div className="inline-flex items-center rounded-full border border-purple-500/30 bg-purple-500/10 px-3 py-1 text-sm font-medium text-purple-300">
-            <Sparkles className="mr-2 h-4 w-4" />
-            Premium Bo'lim
-          </div>
 
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
