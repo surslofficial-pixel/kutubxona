@@ -176,8 +176,7 @@ export function AIChatPage() {
                     ) : (
                         chatMessages.map((msg, idx) => (
                             <div key={idx}
-                                className={`flex gap-3 sm:gap-4 animate-in slide-in-from-bottom-2 duration-300 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}
-                                style={{ animationDelay: `${idx * 50}ms` }}>
+                                className={`flex gap-3 sm:gap-4 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}>
 
                                 {/* Avatar */}
                                 <div className={`w-9 h-9 sm:w-11 sm:h-11 shrink-0 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-sm border ${msg.role === 'user'
@@ -200,12 +199,12 @@ export function AIChatPage() {
 
                     {/* Loading State */}
                     {chatLoading && (
-                        <div className="flex gap-3 sm:gap-4 animate-in slide-in-from-bottom-2 duration-300">
+                        <div className="flex gap-3 sm:gap-4">
                             <div className="w-9 h-9 sm:w-11 sm:h-11 shrink-0 rounded-xl sm:rounded-2xl bg-white text-emerald-600 border border-slate-100 flex items-center justify-center shadow-sm">
                                 <Bot className="w-5 h-5" />
                             </div>
                             <div className="px-6 py-4 rounded-2xl rounded-tl-md bg-white border border-slate-100 flex items-center gap-3 shadow-sm">
-                                <Loader2 className="w-5 h-5 text-emerald-500 animate-spin" />
+                                <Loader2 className="w-5 h-5 text-emerald-500" />
                                 <span className="text-sm font-medium text-slate-500">Kitob qidirilmoqda...</span>
                             </div>
                         </div>
