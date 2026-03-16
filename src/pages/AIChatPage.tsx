@@ -119,7 +119,7 @@ export function AIChatPage() {
                                 AI Kutubxonachi
                             </h1>
                             <div className="flex items-center gap-1.5 mt-0.5">
-                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                                 <p className="text-xs sm:text-base font-medium text-slate-600">
                                     Online yordamchi
                                 </p>
@@ -131,8 +131,7 @@ export function AIChatPage() {
                 </div>
 
                 {/* Messages Area */}
-                <div className="relative z-10 flex-1 overflow-y-auto px-3 sm:px-8 py-4 sm:py-6 space-y-4 sm:space-y-6 scrollbar-thin"
-                    style={{ scrollbarWidth: 'thin', scrollbarColor: '#E2E8F0 transparent' }}>
+                <div className="relative z-10 flex-1 overflow-y-auto px-3 sm:px-8 py-4 sm:py-6 space-y-4 sm:space-y-6 scrollbar-hide">
 
                     {chatMessages.length === 0 ? (
                         <div className="h-full flex flex-col items-center justify-center text-center space-y-8 sm:space-y-10 px-4 pt-10 sm:pt-0 pb-10">
