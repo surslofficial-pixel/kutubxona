@@ -218,9 +218,9 @@ export function AIChatPage() {
                 <div className="relative z-10 p-4 sm:p-6 bg-white border-t border-slate-100">
                     <div className="max-w-4xl mx-auto">
                         <div className="relative flex items-center group">
-                            <div className="flex-1 flex items-center bg-slate-50 rounded-[2rem] border border-slate-200 transition-all duration-300 focus-within:border-emerald-500/40 focus-within:bg-white focus-within:shadow-xl focus-within:shadow-emerald-500/5 px-2 py-2">
-                                <div className="pl-3 sm:pl-4 text-slate-400 shrink-0">
-                                    <Search className="w-5 h-5 group-focus-within:text-emerald-500 transition-colors" />
+                            <div className="flex-1 flex items-center bg-slate-50 rounded-[2rem] border border-slate-200 transition-all duration-300 focus-within:border-emerald-500/40 focus-within:bg-white focus-within:shadow-xl focus-within:shadow-emerald-500/5 px-1 xs:px-2 py-1 xs:py-2">
+                                <div className="pl-2 xs:pl-4 text-slate-400 shrink-0">
+                                    <Search className="w-4 h-4 xs:w-5 xs:h-4 group-focus-within:text-emerald-500 transition-colors" />
                                 </div>
 
                                 <input
