@@ -96,8 +96,8 @@ export function CatalogPage() {
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: index * 0.03 }}
-                            onClick={() => navigate(`/books/${book.id}`)}
-                            className="cursor-pointer"
+                            onClick={categories.find(c => c.slug === book.categorySlug)?.group !== 'audio' ? () => navigate(`/books/${book.id}`) : undefined}
+                            className={categories.find(c => c.slug === book.categorySlug)?.group !== 'audio' ? "cursor-pointer" : ""}
                         >
                             <Card className="overflow-hidden group hover:shadow-lg transition-all duration-300 border-slate-100 h-full">
                                 <div className="aspect-[3/4] overflow-hidden relative">
@@ -107,15 +107,17 @@ export function CatalogPage() {
                                         className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
                                         referrerPolicy="no-referrer"
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                                        <Button
-                                            variant="default"
-                                            className="w-full bg-[#3B82F6] hover:bg-[#1E3A8A] rounded-full"
-                                            onClick={(e) => { e.stopPropagation(); setReaderBookId(book.id); }}
-                                        >
-                                            {book.categorySlug === 'audio-kitoblar' || book.category === 'Audio kitoblar' ? 'Eshitish' : "O'qish"}
-                                        </Button>
-                                    </div>
+                                    {categories.find(c => c.slug === book.categorySlug)?.group !== 'audio' && (
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                                            <Button
+                                                variant="default"
+                                                className="w-full bg-[#3B82F6] hover:bg-[#1E3A8A] rounded-full"
+                                                onClick={(e) => { e.stopPropagation(); setReaderBookId(book.id); }}
+                                            >
+                                                O'qish
+                                            </Button>
+                                        </div>
+                                    )}
                                 </div>
                                 <CardHeader className="p-4 space-y-1">
                                     <div className="text-xs font-medium text-[#3B82F6] mb-1">

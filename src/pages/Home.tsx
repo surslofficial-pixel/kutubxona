@@ -332,8 +332,7 @@ export function Home() {
                 key={book.id}
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                onClick={() => navigate(`/books/${book.id}`)}
-                className="cursor-pointer h-full"
+                className="h-full"
               >
                 <Card className="overflow-hidden group hover:shadow-lg transition-all duration-300 border-emerald-100 hover:border-emerald-300 h-full flex flex-col relative">
                   <div className="absolute top-2 right-2 bg-emerald-500 text-white text-xs px-2 py-1 rounded-full z-10 font-medium flex items-center gap-1 shadow-sm">
@@ -343,14 +342,9 @@ export function Home() {
                     <img
                       src={book.cover}
                       alt={book.title}
-                      className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
+                      className="object-cover w-full h-full transition-transform duration-500"
                       referrerPolicy="no-referrer"
                     />
-                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors flex items-center justify-center">
-                      <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform">
-                        <span className="text-emerald-600 ml-1 text-xl">▶</span>
-                      </div>
-                    </div>
                   </div>
                   <CardHeader className="p-4 space-y-1 flex-1">
                     <div className="text-xs font-medium text-emerald-600 mb-1">
