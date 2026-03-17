@@ -319,9 +319,12 @@ export function AdminDashboard() {
   const [newSize, setNewSize] = useState("");
   const [newSizeUnit, setNewSizeUnit] = useState("MB");
 
+  // Audio kategoriyani aniqlash
+  const isAudioCategory = categories.some(c => c.group === 'audio' && c.name === newCategory);
+
   // YouTube auto-fill effect
   React.useEffect(() => {
-    if (newCategory === "Audio Darslik" && newDriveLink) {
+    if (isAudioCategory && newDriveLink) {
       const ytId = extractDriveFileId(newDriveLink);
       // Auto-fetch ONLY if it's exactly 11 chars (standard YouTube ID)
       if (ytId && ytId.length === 11) {
@@ -1097,7 +1100,7 @@ export function AdminDashboard() {
                 {/* ═══════════════════════════════════════════════════
                     🎧 AUDIO DARSLIK — maxsus dizayn
                     ═══════════════════════════════════════════════════ */}
-                {newCategory === "Audio Darslik" ? (
+                {isAudioCategory ? (
                   <>
                     {/* YouTube havola — BIRINCHI */}
                     <div className="space-y-2">
